@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社交社区 - 完整校验版</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="loginOverlay" class="overlay">
+        <div class="login-card">
+            <h2 id="authTitle">欢迎加入社区</h2>
+            <div class="tab-menu">
+                <span class="active" onclick="switchAuth('login')">登录</span>
+                <span onclick="switchAuth('reg')">注册</span>
+            </div>
+            <input type="email" id="userEmail" placeholder="邮箱地址">
+            <input type="password" id="userPwd" placeholder="密码">
+            <input type="password" id="userPwdConfirm" placeholder="确认密码" class="hidden">
+            <button id="authBtn" onclick="handleAuth()">进入大厅</button>
+            <p id="authMsg" class="error-msg"></p>
+        </div>
+    </div>
+
+    <div id="profileEditOverlay" class="overlay hidden">
+        <div class="login-card">
+            <h2>编辑个人资料</h2>
+            <div class="edit-group">
+                <label>性别：</label>
+                <select id="editGender">
+                    <option value="保密">保密</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+            <div class="edit-group">
+                <label>年龄 (0-150)：</label>
+                <input type="number" id="editAge" placeholder="年龄" min="0" max="150">
+            </div>
+            <div class="edit-group">
+                <label>个人介绍 (最多50字)：</label>
+                <textarea id="editBio" placeholder="介绍一下自己" maxlength="50"></textarea>
+            </div>
+            <button id="authBtn" onclick="saveProfile()">保存并更新</button>
+            <button class="logout-btn" onclick="toggleProfileEdit(false)" style="width:100%; margin-top:10px;">取消</button>
+        </div>
+    </div>
+
+    <div id="viewProfileOverlay" class="overlay hidden" onclick="closeViewProfile()">
+        <div class="login-card" onclick="event.stopPropagation()">
+            <div class="avatar-circle" id="viewAvatar" style="width:70px; height:70px; font-size:2rem; margin:0 auto 15px; background:#1a73e8; color:white;">?</div>
+            <h2 id="viewUserName">用户名</h2>
+            <div class="user-details-large">
+                <p><strong>性别：</strong><span id="viewGender"></span></p>
+                <p><strong>年龄：</strong><span id="viewAge"></span></p>
+                <p style="margin-top:10px;"><strong>个人介绍：</strong></p>
+                <p id="viewBio" style="background:#f1f5f9; padding:10px; border-radius:8px; min-height:60px;"></p>
+            </div>
+            <button id="authBtn" onclick="closeViewProfile()">关闭窗口</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="user-profile-bar">
+                <div class="user-info">
+                    <div class="avatar-circle" id="userAvatar">?</div>
+                    <div>
+                        <div class="user-name" id="displayUserName" title="点击修改资料">加载中...</div>
+                        <div class="user-status"><span class="status-dot"></span> 在线</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">退出</button>
+            </div>
+            <h2>📝 最新动态</h2>
+            <div class="input-box">
+                <textarea id="postText" placeholder="分享点什么..."></textarea>
+                <button onclick="addPost()">发布</button>
+            </div>
+            <div class="list-area" id="postList"></div>
+        </div>
+        <div class="right-panel">
+            <div class="panel-header">
+                <h2 id="chatTitle">🏠 聊天大厅</h2>
+                <button id="backBtn" onclick="exitRoom()" class="hidden">返回大厅</button>
+            </div>
+            <div id="lobbyView" class="room-list">
+                <div class="room-card" onclick="enterRoom('💻 技术交流群')">💻 技术交流群</div>
+                <div class="room-card" onclick="enterRoom('☕ 闲聊摸鱼室')">☕ 闲聊摸鱼室</div>
+                <div class="room-card" onclick="enterRoom('🔒 匿名私聊区')">🔒 匿名私聊区</div>
+            </div>
+            <div id="chatView" class="chat-view-container hidden">
+                <div class="chat-history" id="chatHistory"></div>
+                <div class="chat-input-box">
+                    <input type="text" id="chatMsg" placeholder="输入消息...">
+                    <button onclick="sendChat()">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
