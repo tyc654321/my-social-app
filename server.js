@@ -48,4 +48,9 @@ app.get('/api/user/:userId', (req, res) => {
     } else { res.json({ success: false, msg: '用户未找到' }); }
 });
 
-app.listen(PORT, () => console.log(`服务器启动：http://localhost:${PORT}`));
+// 修改后：让服务器自动适应云端环境
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`服务器已在端口 ${PORT} 启动`);
+});
+
