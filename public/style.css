@@ -41,3 +41,40 @@ input, textarea, select { width: 100%; padding: 12px; border: 1px solid #e2e8f0;
 .logout-btn { background: #fee2e2; color: #ef4444; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; }
 .room-card { background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; border: 1px solid #e2e8f0; text-align: center; }
 .room-card:hover { background: #1a73e8; color: white; }
+/* --- 移动端响应式适配 --- */
+@media (max-width: 768px) {
+    /* 1. 调整主容器，让左右面板变上下排布 */
+    .container {
+        flex-direction: column;
+        margin: 10px;
+        height: auto; /* 高度自适应，防止手机上内容溢出 */
+        overflow-y: visible;
+    }
+
+    /* 2. 让面板占据 100% 宽度 */
+    .left-panel, .right-panel {
+        flex: none;
+        width: 100%;
+        height: auto;
+        min-height: 400px; /* 给面板一个最小高度 */
+        margin-bottom: 20px;
+    }
+
+    /* 3. 针对聊天区域进行特殊处理，确保它在手机上有固定高度 */
+    .right-panel {
+        height: 500px; 
+    }
+
+    /* 4. 缩小弹窗宽度，适配小屏幕 */
+    .login-card {
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* 5. 稍微缩小字体和头像，节省空间 */
+    h2 { font-size: 1.2rem; }
+    .avatar-circle { width: 35px; height: 35px; }
+    
+    /* 6. 聊天气泡在手机上可以更宽一点 */
+    .chat-bubble { max-width: 90%; }
+}
